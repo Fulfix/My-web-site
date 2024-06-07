@@ -1,7 +1,7 @@
 # Prerequisites:
 
 - A Discord bot token
-- A Minecraft server
+- A Minecraft server : your can run without sudo
 - Python installed
 - Python packages installed: discord.py, mcstatus, subprocess, asyncio
 
@@ -35,6 +35,3 @@
 
 - Replace "your_minecraft_server_ip" with the IP address of your Minecraft server in the start_server.sh script. This script is responsible for starting the Minecraft server.
 
-## Removing Super User (su) Password:
-
-- To allow your script to start the Minecraft server without entering a password, you need to modify the sudoers file.
