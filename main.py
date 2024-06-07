@@ -8,12 +8,12 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("!"), help_command=None, intents=intents)
-server = JavaServer.lookup("Your_server_adresse")
-target_channel_id = YOUR_TARGET_CHANNEL_ID_HERE
+server = JavaServer.lookup("YOUR_SERVER_ADRESSE:PORT")
 
 @bot.event
 async def on_ready():
     print("Bot is ready")
+
 
 @bot.event
 async def on_message(message):
@@ -24,32 +24,34 @@ async def on_message(message):
 async def ping(ctx):
     await ctx.send("Pong!")
 
+
 async def start_server(ctx, loading_message):
     subprocess.Popen(['/bin/bash', 'start_server.sh'])
-    await loading_message.edit(content="Starting the Minecraft server...")
+    await loading_message.edit(content="Démarrage du serveur Minecraft en cours...")
     loading_state = 0
-    moon_emojis = ["□■■■", "■□■■", "■■□■", "■■■□"]  # Moon emojis list
+    moon_emojis = ["□■■■", "■□■■", "■■□■", "■■■□"]  # Liste d'emojis de lune
     while True:
         try:
             if server.ping():
-                break
+                break  # Sort de la boucle si le serveur répond
         except Exception:
-            pass
+            pass  # Ignore les exceptions de connexion pour continuer à essayer
         
-        loading_content = f"Loading {moon_emojis[loading_state]}"
+        # Animation de chargement avec l'emoji de lune
+        loading_content = f"Chargement en cours {moon_emojis[loading_state]}"
         await loading_message.edit(content=loading_content)
-        loading_state = (loading_state + 1) % len(moon_emojis)
-        await asyncio.sleep(1)
+        loading_state = (loading_state + 1) % len(moon_emojis)  # Passage à l'emoji suivant
+        await asyncio.sleep(1)  # Augmenter le délai à 1 seconde
 
     await loading_message.delete()
-    await ctx.send("The Minecraft server has started successfully!")
+    await ctx.send("Le serveur Minecraft a été démarré avec succès!")
 
 @bot.command()
 async def startserv(ctx):
-    loading_message = await ctx.send("Starting the server...")
+    loading_message = await ctx.send("Démarrage du serveur en cours...")
     try:
         status = server.status()
-        await loading_message.edit(content="The Minecraft server is already started.")
+        await loading_message.edit(content="Le serveur Minecraft est déjà démarré.")
     except Exception as e:
         await start_server(ctx, loading_message)
 
@@ -58,46 +60,39 @@ async def stopserv(ctx):
     subprocess.Popen(['pkill', '-f', 'java'])
     
     embed = discord.Embed(
-        title="Minecraft Server Shutdown",
-        description="The Minecraft server is now offline.",
-        color=0xFF0000
+        title="Arrêt du Serveur Minecraft",
+        description="Le serveur Minecraft est éteind.",
+        color=0xFF0000  # Rouge
     )
-    embed.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/1828/1828778.png")
-    embed.set_footer(text=f"Command executed by {ctx.author}", icon_url=ctx.author.avatar.url)
+    embed.set_thumbnail(url="https://cdn-icons-png.flaticon.com/512/1828/1828778.png")  # Image d'arrêt
+    embed.set_footer(text=f"Commande exécutée par {ctx.author}", icon_url=ctx.author.avatar.url)
     
     await ctx.send(embed=embed)
+
 
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(
-        title="Available Commands:",
-        description="Here are the commands you can use with this bot:",
+        title="Commandes disponibles :",
+        description="Voici les commandes que vous pouvez utiliser avec ce bot :",
         color=0xFFFF00
     )
-    embed.add_field(name="!ping", value="Check latency with 'Pong!'", inline=False)
-    embed.add_field(name="!startserv", value="Start the Minecraft server.", inline=False)
-    embed.add_field(name="!stopserv", value="Stop the Minecraft server.", inline=False)
-    embed.add_field(name="!ip", value="Display the Minecraft server IP address.", inline=False)
-    embed.add_field(name="!status", value="Display the Minecraft server status and additional information if the server is online.", inline=False)
-    embed.add_field(name="!banana", value="Send a banana GIF by default, but can send up to 10 with '!banana 10'.", inline=False)
+    embed.add_field(name="!ping", value="Renvoie 'Pong!' pour vérifier la latence.", inline=False)
+    embed.add_field(name="!startserv", value="Démarre le serveur Minecraft.", inline=False)
+    embed.add_field(name="!stopserv", value="Arrête le serveur Minecraft.", inline=False)
+    embed.add_field(name="!ip", value="Affiche l'adresse IP du serveur Minecraft.", inline=False)
+    embed.add_field(name="!status", value="Affiche le statut du serveur Minecraft et plus d'information si le serveur est en ligne.", inline=False)
+    embed.add_field(name="!banana", value="Envoie par défaut un gif de banana mais peut en envoyer jusqu'à 10 !banana 10", inline=False)
     await ctx.send(embed=embed)
 
 @bot.command()
 async def ip(ctx):
     embed = discord.Embed(
-        title="Minecraft Server IP Addresses",
-        color=0xFFFF00
+        title="Adresses IP du Serveur Minecraft",
+        color=0xFFFF00  # Couleur jaune
     )
-    embed.add_field(name="Java Edition", value="Your_server_adresse", inline=False)
-    embed.add_field(name="Bedrock Edition", value="Your_server_adresse", inline=False)
-    embed.add_field(name="Port", value="Your_server_port", inline=False)
+    embed.add_field(name="Java Edition", value="YOUR_SERVER_ADRESSE:PORT", inline=False)
     await ctx.send(embed=embed)
-
-@bot.command()
-@commands.is_owner()
-async def shutdown(ctx):
-    await ctx.send("Shutting down the bot...")
-    await bot.close()
 
 @bot.command()
 async def banana(ctx, n: str = '1'):
@@ -106,37 +101,42 @@ async def banana(ctx, n: str = '1'):
         if n < 1:
             raise ValueError
     except ValueError:
-        await ctx.send("Please enter a valid integer between 1 and 10.")
+        await ctx.send("Veuillez entrer un nombre entier valide entre 1 et 10.")
         return
     
     gif_url = "https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2lpN2MzMHVwdDZ3Y29tYjhsNjgxY2FqeHFldXU4cDA5ajdjOWJ4MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IB9foBA4PVkKA/giphy.gif"
     
-    for _ in range(min(n, 10)):
+    for _ in range(min(n, 10)):  # Limit to 10 GIFs
         await ctx.send(gif_url)
 
+
 @bot.command()
-async def info(ctx):
-    server_address = "Your_server_adresse"
+async def status(ctx):
+    server_address = "YOUR_SERVER_ADRESSE:PORT"
     try:
         server = JavaServer.lookup(server_address)
         status = server.status()
         
-        player_samples = ', '.join([player.name for player in status.players.sample]) if status.players.sample else "No sampled players"
+        # Sample player names (if available)
+        player_samples = ', '.join([player.name for player in status.players.sample]) if status.players.sample else "Aucun joueur échantillonné"
         
+        # Ping the server for latency
         latency = server.ping()
         
+        # Embed message
         embed = discord.Embed(
-            title="Minecraft Server Information",
-            color=0x00FF00
+            title="Informations sur le Serveur Minecraft",
+            color=0x00FF00  # Couleur verte
         )
-        embed.add_field(name="Latency", value=f"{latency} ms", inline=False)
-        embed.add_field(name="Players Online",
-        value=f"{status.players.online}/{status.players.max}", inline=False)
-        embed.add_field(name="Player Names (Sample)", value=player_samples, inline=False)
+        embed.add_field(name="Latence", value=f"{latency} ms", inline=False)
+        embed.add_field(name="Joueurs en ligne", value=f"{status.players.online}/{status.players.max}", inline=False)
+        embed.add_field(name="Noms des joueurs (échantillon)", value=player_samples, inline=False)
         
         await ctx.send(embed=embed)
     except Exception as e:
-        await ctx.send("The Minecraft server is currently offline or unreachable.")
+        await ctx.send("Le serveur Minecraft est hors ligne ou inaccessible pour le moment.")
+
 
 if __name__ == '__main__':
-    bot.run("YOUR_BOT_TOKEN_HERE")
+    bot.run("YOUR_BOT_TOKEN")
+
