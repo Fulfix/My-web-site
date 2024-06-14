@@ -11,7 +11,7 @@ themeButton.addEventListener('click', () => {
   document.body.classList.toggle('dark-theme');
   document.body.classList.toggle('light-theme');
 
-  themeIcon.src = document.body.classList.contains('dark-theme') ? './images/lune-removebg-preview.png' : '/Users/denis/Thomas/beginner-html-site-styled-gh-pages/images/20240609134543-removebg-preview.png';
+  themeIcon.src = document.body.classList.contains('dark-theme') ? './images/lune-removebg-preview.png' : './images/20240609134543-removebg-preview.png';
 
   // Update the color of all <p> elements
   const paragraphs = document.querySelectorAll('p');
