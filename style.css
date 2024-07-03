@@ -7,7 +7,7 @@
 
 /* Styles généraux */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Kanit, sans-serif;
     line-height: 1.6;
     background-color: #1b1b1b;
     color: #ffffff;
@@ -33,8 +33,9 @@ header .me img {
 }
 
 * p {
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 500;
+    
 }
 
 header a {
