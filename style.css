@@ -9,91 +9,128 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    margin: 5% 10%;
+}
+
+.description {
+    margin-top: 10%;
+}
+
+header .me img {
+    border-radius: 39%;
+    height: 200px;
+    display: inline-block;
+}
+
+.me {
+    text-align: center;
+}
+
+.title {
+    font-size: 50px;
+}
+
+* p {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+header a {
+    text-align: right;
+}
+
+/* CSS */
+.button {
+    align-items: center;
+    background-color: #dba348;
+    border: 0;
+    border-radius: 100px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 20px;
+    max-width: 480px;
+    min-height: 40px;
+    min-width: 0px;
+    overflow: hidden;
+    padding: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #7e4f16;
+    color: #ffffff;
 }
 
 .container {
-    max-width: 960px;
-    margin: auto;
+    text-align: right;
+}
+
+.OptiBanana {
+    height: 170px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.project1 {
+    background-color: #505050;
+    border-radius: 50px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
     padding: 20px;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
+.project1:hover {
+    filter: blur(10);
+    transform: scale(1.05);
+}
+
+.center_desc {
+    margin-left: 20px; /* Ajoute de l'espace entre l'image et le texte */
     text-align: center;
-    position: relative; /* Positionnement relatif pour le bouton Linktree */
+    color: #fff; /* Assurez-vous que le texte est visible */
+    flex: 1; /* Permet au texte de prendre l'espace restant */
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+/* Ajoutez cette règle CSS */
+.clickable-div {
+    cursor: pointer;
 }
 
-header p {
-    font-size: 1.2rem;
+.project2 {
+    margin-top: 5%;
+    background-color: #505050;
+    border-radius: 50px;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 20px;
 }
 
-.linktree-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #55acee;
-    color: #fff;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
+.project2:hover {
+    filter: blur(10);
+    transform: scale(1.05);
 }
 
-main {
-    padding: 20px 0;
-}
-
-section {
-    margin-bottom: 40px;
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.project {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.project h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.project p {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.project a {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-.project a:hover {
-    background-color: #555;
-}
-
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #333;
-    color: #fff;
+.DiscordCraftBot {
+    height: 170px;
+    width: auto;
+    border-radius: 50%;
 }
